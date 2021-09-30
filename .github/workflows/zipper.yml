@@ -13,10 +13,6 @@ jobs:
         with:
           files: test/hello.py
           dest: ./artifacts/result.zip
-      - name : ls
-        run : "ls -la"
-      - name : pwd
-        run : "pwd"
       - uses: shallwefootball/s3-upload-action@master
         with:
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
