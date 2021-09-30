@@ -6,11 +6,13 @@ jobs:
   zip-files:
     runs-on: ubuntu-latest
     steps:
+      - name: Make artifact directory
+        run: mkdir -p ./artifacts/${{ github.repository }}
       - uses: actions/checkout@v2
       - uses: papeloto/action-zip@v1
         with:
           files: test/hello.py
-          dest: result.zip
+          dest: ./artifacts/result.zip
       - name : ls
         run : "ls -la"
       - name : pwd
@@ -20,5 +22,5 @@ jobs:
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
           aws_bucket: ${{ secrets.AWS_S3_BUCKET }}
-          source_dir: ${{ github.workspace }}/result.zip
+          source_dir: ./artifacts/result.zip
 
