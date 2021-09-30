@@ -11,6 +11,11 @@ jobs:
         with:
           files: test/hello.py
           dest: result.zip
+      - uses: actions/upload-artifact@v1
+        with:
+          name: my-artifact
+          path: /home/runner/work/actionstest/actionstestresult.zip
+
 
   deploy:
     needs: zip-files
