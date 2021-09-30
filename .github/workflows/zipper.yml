@@ -11,11 +11,7 @@ jobs:
         with:
           files: test/hello.py
           dest: result.zip
-      - uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact
-          path: ${{ github.workspace }}/result.zip
-          
+
   deploy:
     needs: zip-files
     runs-on: ubuntu-latest
