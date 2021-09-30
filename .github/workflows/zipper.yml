@@ -27,7 +27,7 @@ jobs:
         with:
           args: --acl public-read
         env:
-          FILE: ${{ github.workspace }}/result.zip
+          FILE: /home/runner/work/actionstest/actionstest/result.zip
           AWS_REGION: 'eu-west-2'
           S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
