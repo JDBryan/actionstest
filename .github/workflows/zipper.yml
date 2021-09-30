@@ -14,23 +14,17 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: my-artifact
-          path: /github/workspace/result.zip
-
-
-  deploy:
+          path: ${{ github.workspace }}/result.zip
+          
+  upload:
     needs: zip-files
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-   
-      - name: Upload file to bucket
-        uses: zdurham/s3-upload-github-action@master
+      - uses: shallwefootball/s3-upload-action@master
         with:
-          args: --acl public-read
-        env:
-          FILE: /github/workspace/result.zip
-          AWS_REGION: 'eu-west-2'
-          S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.AWS_S3_BUCKET }}
+          source_dir: ${{ github.workspace }}/result.zip
 
