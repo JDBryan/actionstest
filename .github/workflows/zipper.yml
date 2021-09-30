@@ -11,7 +11,10 @@ jobs:
         with:
           files: test/hello.py
           dest: result.zip
-      - uses: actions/checkout@master
+      - name : ls
+        run : "ls -la"
+      - name : pwd
+        run : "pwd"
       - uses: shallwefootball/s3-upload-action@master
         with:
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
