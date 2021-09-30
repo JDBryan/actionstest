@@ -9,5 +9,5 @@ jobs:
       - uses: actions/checkout@v2
       - uses: papeloto/action-zip@v1
         with:
-          files: test
+          files: test/hello.py
           dest: result.zip
