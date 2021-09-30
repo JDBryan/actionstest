@@ -15,7 +15,7 @@ jobs:
       - uses: papeloto/action-zip@v1
         with:
           files: test/hello.py
-          dest: ./artifacts/${{ steps.date.outputs.date }}_${{ github.repository }}
+          dest: ./artifacts/${{ steps.date.outputs.date }}_${{ env.GITHUB_REPOSITORY }}
       - uses: shallwefootball/s3-upload-action@master
         with:
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
