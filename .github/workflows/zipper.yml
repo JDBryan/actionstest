@@ -15,7 +15,7 @@ jobs:
       - uses: papeloto/action-zip@v1
         with:
           files: test/hello.py
-          dest: ./artifacts/${{ steps.date.outputs.date }}_${{ github.event.repository.name }}_${{ github.sha }} 
+          dest: ./artifacts/${{ steps.date.outputs.date }}_${{ github.event.repository.name }}_${{ steps.previoustag.outputs.tag }}
       - uses: shallwefootball/s3-upload-action@master
         with:
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -34,6 +34,15 @@ jobs:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
+      - uses: actions/checkout@v2.2.0
+        with:
+          fetch-depth: 0 # Required due to the weg Git works, without it this action won't be able to find any or the correct tags
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        with:
+          fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
+
 
           
 
