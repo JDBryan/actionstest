@@ -3,7 +3,7 @@ name: Zip Files
 on: push
 
 jobs:
-  zip-files:
+  zip-filesx:
     runs-on: ubuntu-latest
     steps:
       - name: Get current date
