@@ -31,7 +31,7 @@ jobs:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
-          artifacts: ./artifacts/${{ steps.vars.outputs.date }}_${{ github.event.repository.name }}_${{ steps.tag_version.outputs.new_tag }}_${{ steps.vars.outputs.sha_short }
+          artifacts: ./artifacts/${{ steps.vars.outputs.date }}_${{ github.event.repository.name }}_${{ steps.tag_version.outputs.new_tag }}_${{ steps.vars.outputs.sha_short }}
       - uses: shallwefootball/s3-upload-action@master
         with:
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
