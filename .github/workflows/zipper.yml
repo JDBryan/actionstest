@@ -19,19 +19,19 @@ jobs:
         uses: mathieudutour/github-tag-action@v5.6
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: papeloto/action-zip@v1
+        with:
+          files: test/hello.py
+        dest: ./artifacts/${{ steps.vars.outputs.date }}_${{ github.event.repository.name }}_${{ steps.tag_version.outputs.new_tag }}_${{ steps.vars.outputs.sha_short }}
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
-          omitBody: True
+          bodyFile: ./artifacts/${{ steps.vars.outputs.date }}_${{ github.event.repository.name }}_${{ steps.tag_version.outputs.new_tag }}_${{ steps.vars.outputs.sha_short }}
       - name: Make artifact directory
         run: mkdir -p ./artifacts
-      - uses: papeloto/action-zip@v1
-        with:
-          files: test/hello.py
-          dest: ./artifacts/${{ steps.vars.outputs.date }}_${{ github.event.repository.name }}_${{ steps.tag_version.outputs.new_tag }}_${{ steps.vars.outputs.sha_short }}
       - uses: shallwefootball/s3-upload-action@master
         with:
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
