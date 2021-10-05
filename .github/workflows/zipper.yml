@@ -16,30 +16,28 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Set outputs
         id: vars
-        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+        run: |
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M')"
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
-      - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M')"
+          body: ${{ steps.tag_version.outputs.changelog }
       - name: Make artifact directory
         run: mkdir -p ./artifacts
-      - uses: actions/checkout@v2
       - uses: papeloto/action-zip@v1
         with:
           files: test/hello.py
-          dest: ./artifacts/${{ steps.date.outputs.date }}_${{ github.event.repository.name }}_${{ steps.tag_version.outputs.new_tag }}_${{ steps.vars.outputs.sha_short }}
+          dest: ./artifacts/${{ steps.vars.outputs.date }}_${{ github.event.repository.name }}_${{ steps.tag_version.outputs.new_tag }}_${{ steps.vars.outputs.sha_short }}
       - uses: shallwefootball/s3-upload-action@master
         with:
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
           aws_bucket: ${{ secrets.AWS_S3_BUCKET }}
           source_dir: ./artifacts
-      - uses: actions/checkout@v2
+
       
 
           
