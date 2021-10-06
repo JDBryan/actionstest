@@ -1,9 +1,9 @@
-name: Zip Files
+name: Release
 
 on: push
 
 jobs:
-  zip-files:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.2.0
