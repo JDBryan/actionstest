@@ -42,14 +42,4 @@ jobs:
           aws_bucket: ${{ secrets.AWS_S3_BUCKET }}
           source_dir: ./artifacts
           destination_dir: ${{ github.event.repository.name }}
-       # ARI: Checking the docs at https://github.com/shallwefootball/upload-s3-action think we can use an extra input
-          # called "destination_dir" -> The docs say "If this field is excluded a shortid will be generated".
-          # think that's why it generates a random folder name in the bucket. 
-          # I'd suggest we use the name of the repo as the "destination_dir", that way in the given AWS account 
-          # (ATG or Unai or whatever Charlie suggests we should use) we can have a bucket
-          # called "atg-artifacts" or similar, with folders "atg-demand-model", "ATGRevenueManagementServer" etc etc.
-
-      
-
           
-
