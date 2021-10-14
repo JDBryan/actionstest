@@ -41,7 +41,6 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: eu-west-2
-          role-to-assume: arn:aws:iam::219708027939:role/FullAccess
       - uses: shallwefootball/s3-upload-action@master
         with:
           aws_key_id: ${{ secrets.AWS_DEPLOYMENT_ACCESS_KEY_ID }}
