@@ -42,6 +42,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_DEPLOYMENT_ACCESS_KEY_ID }} 
           aws-region: eu-west-2
+          aws-secret-access-key: ${{ secrets.AWS_DEPLOYMENT_SECRET_ACCESS_KEY}}
       - uses: shallwefootball/s3-upload-action@master
         with:
           aws_key_id: ${{ secrets.AWS_DEPLOYMENT_ACCESS_KEY_ID }}
