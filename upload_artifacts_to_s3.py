@@ -56,15 +56,6 @@ ARTIFACTS_TO_GENERATE = [
     FolderToZip("artifacts", "release.zip"),
 ]
 
-# Adds all lambda functions to the artifact list
-#for lambda_function_dir in os.listdir("lambda_functions"):
-#    full_path = os.path.join("lambda_functions", lambda_function_dir)
-#    if os.path.isdir(full_path) and lambda_function_dir != "__pycache__":
-#        ARTIFACTS_TO_GENERATE.append(
-#            FolderToZip(full_path, f"{lambda_function_dir}.zip")
-#        )
-
-
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Build artifacts and upload to S3")
     parser.add_argument(
@@ -134,20 +125,20 @@ def upload_artifacts(s3_artifact_bucket: str, aws_region: str, profile: Optional
             
 
           
-def upload_release(bucket, filename, repo_name, aws_region, profile): 
+def upload_release(bucket, filename, repo_name, aws_region): 
     session = boto3.Session(profile_name=profile, region_name=aws_region)
     s3_client = session.client("s3")
     
-    s3_client.upload_file(
-        "./artifacts/" + filename,
-        bucket,
-        repo_name + "/" + filename
-    )
+    try:
+        s3_client.upload_file(
+            "./artifacts/" + filename,
+            bucket,
+            repo_name + "/" + filename
+        )
+    except ClientError as e:
+        print(e)
 
 
 if __name__ == "__main__":
     args = parse_arguments()
-    #create_build_folder()
-    #ensure_build_folder_empty()
-    #generate_artifacts()
     upload_release(args.s3_artifact_bucket, args.filename, args.repo_name, args.aws_region, args.profile)
