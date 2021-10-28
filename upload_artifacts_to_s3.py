@@ -136,7 +136,7 @@ def upload_release(bucket, filename, aws_region, profile):
     s3_client = session.client("s3")
     
     s3_client.upload_file(
-        "/artifacts/"+filename,
+        "./artifacts/"+filename,
         bucket,
         "something"
     )
