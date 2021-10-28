@@ -141,7 +141,7 @@ def upload_release(bucket, filename, repo_name aws_region, profile):
     s3_client.upload_file(
         "./artifacts/" + filename,
         bucket,
-        repo_name+ "/" +filename
+        repo_name + "/" + filename
     )
 
 
@@ -150,4 +150,4 @@ if __name__ == "__main__":
     #create_build_folder()
     #ensure_build_folder_empty()
     #generate_artifacts()
-    upload_release(args.s3_artifact_bucket, args.filename, args.repo_name args.aws_region, args.profile)
+    upload_release(args.s3_artifact_bucket, args.filename, args.repo_name, args.aws_region, args.profile)
