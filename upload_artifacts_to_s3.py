@@ -126,7 +126,7 @@ def upload_artifacts(s3_artifact_bucket: str, aws_region: str, profile: Optional
 
           
 def upload_release(bucket, filename, repo_name, aws_region): 
-    session = boto3.Session(profile_name=profile, region_name=aws_region)
+    session = boto3.Session()
     s3_client = session.client("s3")
     
     try:
