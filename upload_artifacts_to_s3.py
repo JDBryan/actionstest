@@ -141,4 +141,4 @@ def upload_release(bucket, filename, repo_name, aws_region):
 
 if __name__ == "__main__":
     args = parse_arguments()
-    upload_release(args.s3_artifact_bucket, args.filename, args.repo_name, args.aws_region, args.profile)
+    upload_release(args.s3_artifact_bucket, args.filename, args.repo_name, args.aws_region)
