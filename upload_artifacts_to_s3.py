@@ -75,6 +75,9 @@ def parse_arguments():
         "aws_region", help="The region the bucket resides in, e.g: 'eu-west-2'"
     )
     parser.add_argument(
+        "filename", help="The name of the file to be uploaded"
+    )
+    parser.add_argument(
         "--profile", help="The AWS profile to use for the upload, e.g: 'sb-dev-ci'"
     )
     return parser.parse_args()
@@ -125,11 +128,22 @@ def upload_artifacts(s3_artifact_bucket: str, aws_region: str, profile: Optional
             )
         except ClientError as e:
             print(e)
+            
+
+          
+def upload_release(bucket, aws_regionfilename): 
+    session = boto3.Session(profile_name=profile, region_name=aws_region)
+    s3_client = session.client("s3")
+    
+    s3_client.upload_file(
+        "/artifacts/"+filename,
+        bucket
+    )
 
 
 if __name__ == "__main__":
     args = parse_arguments()
-    create_build_folder()
-    ensure_build_folder_empty()
-    generate_artifacts()
-    upload_artifacts(args.s3_artifact_bucket, args.aws_region, args.profile)
+    #create_build_folder()
+    #ensure_build_folder_empty()
+    #generate_artifacts()
+    upload_release(args.s3_artifact_bucket, args.aws_region, args.profile)
