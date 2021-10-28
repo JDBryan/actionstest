@@ -54,4 +54,4 @@ jobs:
           body: ${{ steps.tag_version.outputs.changelog }}
           artifacts: ./artifacts/${{ steps.filename.outputs.filename }}
       - name: Upload artifacts to S3 - Developer Triggered
-        run: python upload_artifacts_to_s3.py ${{ secrets.AWS_S3_RELEASE_BUCKET }} ${{ steps.filename.outputs.filename }} ${{ github.event.repository.name }} eu-west-2
+        run: python upload_artifacts_to_s3.py ${{ secrets.AWS_S3_RELEASE_BUCKET }} ${{ steps.filename.outputs.filename }} ${{ github.event.repository.name }}
