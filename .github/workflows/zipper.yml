@@ -40,18 +40,16 @@ jobs:
       - name: Create file name
         id: filename
         run: echo "::set-output name=filename::${{ steps.vars.outputs.date }}_${{ github.event.repository.name }}_${{ steps.tag_version.outputs.new_tag }}_${{ steps.vars.outputs.sha_short }}.zip"
-      - name: Make artifact directory
-        run: mkdir -p ./artifacts
       - uses: papeloto/action-zip@v1
         with:
           files: /
-          dest: ./artifacts/${{ steps.filename.outputs.filename }}
+          dest: ./${{ steps.filename.outputs.filename }}
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
-          artifacts: ./artifacts/${{ steps.filename.outputs.filename }}
+          artifacts: ./${{ steps.filename.outputs.filename }}
       - name: Upload artifacts to S3 - Developer Triggered
         run: python upload_artifacts_to_s3.py ${{ secrets.AWS_S3_RELEASE_BUCKET }} ${{ steps.filename.outputs.filename }} ${{ github.event.repository.name }}
