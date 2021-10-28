@@ -72,10 +72,10 @@ def parse_arguments():
         help="The S3 bucket to upload the artifacts into once build, e.g: 'sb-upn-hs1-{workspace}-artifacts'",
     )
     parser.add_argument(
-        "aws_region", help="The region the bucket resides in, e.g: 'eu-west-2'"
+        "filename", help="The name of the file to be uploaded"
     )
     parser.add_argument(
-        "filename", help="The name of the file to be uploaded"
+        "aws_region", help="The region the bucket resides in, e.g: 'eu-west-2'"
     )
     parser.add_argument(
         "--profile", help="The AWS profile to use for the upload, e.g: 'sb-dev-ci'"
@@ -131,7 +131,7 @@ def upload_artifacts(s3_artifact_bucket: str, aws_region: str, profile: Optional
             
 
           
-def upload_release(bucket, aws_regionfilename): 
+def upload_release(bucket, filename, aws_region, profile): 
     session = boto3.Session(profile_name=profile, region_name=aws_region)
     s3_client = session.client("s3")
     
@@ -146,4 +146,4 @@ if __name__ == "__main__":
     #create_build_folder()
     #ensure_build_folder_empty()
     #generate_artifacts()
-    upload_release(args.s3_artifact_bucket, args.aws_region, args.profile)
+    upload_release(args.s3_artifact_bucket, args.filename, args.aws_region, args.profile)
