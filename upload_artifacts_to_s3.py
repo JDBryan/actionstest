@@ -75,6 +75,9 @@ def parse_arguments():
         "filename", help="The name of the file to be uploaded"
     )
     parser.add_argument(
+        "repo_name", help="The of the current repository"
+    )
+    parser.add_argument(
         "aws_region", help="The region the bucket resides in, e.g: 'eu-west-2'"
     )
     parser.add_argument(
@@ -131,14 +134,14 @@ def upload_artifacts(s3_artifact_bucket: str, aws_region: str, profile: Optional
             
 
           
-def upload_release(bucket, filename, aws_region, profile): 
+def upload_release(bucket, filename, repo_name aws_region, profile): 
     session = boto3.Session(profile_name=profile, region_name=aws_region)
     s3_client = session.client("s3")
     
     s3_client.upload_file(
-        "./artifacts/"+filename,
+        "./artifacts/" + filename,
         bucket,
-        "/newplace/"+filename
+        repo_name+ "/" +filename
     )
 
 
@@ -147,4 +150,4 @@ if __name__ == "__main__":
     #create_build_folder()
     #ensure_build_folder_empty()
     #generate_artifacts()
-    upload_release(args.s3_artifact_bucket, args.filename, args.aws_region, args.profile)
+    upload_release(args.s3_artifact_bucket, args.filename, args.repo_name args.aws_region, args.profile)
