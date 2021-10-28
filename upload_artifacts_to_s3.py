@@ -69,12 +69,12 @@ ARTIFACTS_TO_GENERATE = [
 ]
 
 # Adds all lambda functions to the artifact list
-for lambda_function_dir in os.listdir("lambda_functions"):
-    full_path = os.path.join("lambda_functions", lambda_function_dir)
-    if os.path.isdir(full_path) and lambda_function_dir != "__pycache__":
-        ARTIFACTS_TO_GENERATE.append(
-            FolderToZip(full_path, f"{lambda_function_dir}.zip")
-        )
+#for lambda_function_dir in os.listdir("lambda_functions"):
+#    full_path = os.path.join("lambda_functions", lambda_function_dir)
+#    if os.path.isdir(full_path) and lambda_function_dir != "__pycache__":
+#        ARTIFACTS_TO_GENERATE.append(
+#            FolderToZip(full_path, f"{lambda_function_dir}.zip")
+#        )
 
 
 def parse_arguments():
