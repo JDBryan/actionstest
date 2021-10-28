@@ -24,7 +24,7 @@ def upload_release(bucket, filename, repo_name):
     
     try:
         s3_client.upload_file(
-            "./artifacts/" + filename,
+            "./" + filename,
             bucket,
             repo_name + "/" + filename
         )
