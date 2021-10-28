@@ -53,19 +53,7 @@ class FileToCopy(ArtifactToGenerate):
 
 
 ARTIFACTS_TO_GENERATE = [
-    FolderToZip("packages", "cp_packages.zip"),
-    FileToCopy("providers_config/config.schema.json", "config.schema.json"),
-    FileToCopy("providers_config/mimic_config.json", "mimic_config.json"),
-    FileToCopy("providers_config/mimic_input_schema.json", "mimic_input_schema.json"),
-    FileToCopy("providers_config/synthea_config.json", "synthea_config.json"),
-    FileToCopy(
-        "providers_config/synthea_input_schema.json", "synthea_input_schema.json"
-    ),
-    FileToCopy(
-        "lambda_functions/hsp_api/hsp_api.yaml",
-        "hsp_api.yaml",
-        {"ContentType": "text/yaml"},
-    ),
+    FolderToZip("artifacts", "release.zip"),
 ]
 
 # Adds all lambda functions to the artifact list
